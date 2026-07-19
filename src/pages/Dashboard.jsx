@@ -55,29 +55,7 @@ export default function Dashboard() {
     }, 2500);
   };
 
-  const handleRealPayment = async () => {
-    setIsProcessingPayment(true);
-    try {
-      const response = await fetch('/api/create-cryptomus-payment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ userId })
-      });
-      const data = await response.json();
-      if (data.url) {
-        window.open(data.url, '_blank');
-      } else {
-        alert('Errore nella creazione del pagamento: ' + (data.error || 'Errore sconosciuto'));
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Errore di rete durante la connessione a Cryptomus.');
-    } finally {
-      setIsProcessingPayment(false);
-    }
-  };
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -309,33 +287,65 @@ export default function Dashboard() {
           {/* Paywall Modal */}
           {showPaywallModal && (
             <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ background: '#0a0a0a', border: '1px solid #10b981', borderRadius: '12px', padding: '30px', width: '90%', maxWidth: '400px', fontFamily: '"JetBrains Mono", monospace' }}>
-                <h3 style={{ color: '#10b981', marginTop: 0 }}>&gt; ROOT_ACCESS_REQUIRED</h3>
-                <p style={{ color: '#a3a3a3', fontSize: '14px' }}>Bulletproof Suite Lifetime License: 0.005 BTC / €15</p>
-                <div style={{ margin: '20px 0', padding: '15px', background: '#000', border: '1px solid rgba(16,185,129,0.3)', color: '#10b981', fontSize: '12px', minHeight: '80px' }}>
-                  {isProcessingPayment ? (
-                    <>
-                      <div>&gt; Establishing secure channel...</div>
-                      <div>&gt; Verifying transaction hash...</div>
-                      <div>&gt; Decrypting license keys...</div>
-                      <div style={{animation: 'blink 1s step-end infinite'}}>_</div>
-                    </>
-                  ) : (
-                    <div>&gt; Awaiting payment confirmation...<br />Dopo aver completato il pagamento, ricarica la pagina per attivare le modifiche.</div>
-                  )}
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <button disabled={isProcessingPayment} onClick={handleRealPayment} style={{ background: '#10b981', color: '#000', border: 'none', padding: '10px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold', fontSize: '13px', opacity: isProcessingPayment ? 0.6 : 1 }}>
-                    {isProcessingPayment ? 'Initializing checkout...' : 'Pay with Card / Crypto'}
-                  </button>
-                  <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
-                    <button disabled={isProcessingPayment} onClick={unlockPremium} style={{ flex: 1, background: 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', padding: '8px', borderRadius: '6px', cursor: 'pointer', fontSize: '11px' }}>
-                      {isProcessingPayment ? 'Processing...' : 'Simulate Payment (Dev)'}
-                    </button>
-                    <button disabled={isProcessingPayment} onClick={() => setShowPaywallModal(false)} style={{ flex: 1, background: 'transparent', color: '#a3a3a3', border: '1px solid #737373', padding: '8px', borderRadius: '6px', cursor: 'pointer', fontSize: '11px' }}>
-                      Abort
-                    </button>
+              <div style={{ background: '#0a0a0a', border: '1px solid #10b981', borderRadius: '12px', padding: '24px', width: '95%', maxWidth: '440px', fontFamily: '"JetBrains Mono", monospace', maxHeight: '90vh', overflowY: 'auto' }}>
+                <h3 style={{ color: '#10b981', marginTop: 0, fontSize: '16px' }}>&gt; MANUAL_PAYMENT_REQUIRED</h3>
+                <p style={{ color: '#a3a3a3', fontSize: '12px', lineHeight: '1.5', marginBottom: '16px' }}>
+                  Per sbloccare permanentemente la suite Bulletproof, invia <strong>€15 / 15 USDT</strong> ad uno dei seguenti indirizzi:
+                </p>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
+                  {/* USDT */}
+                  <div style={{ background: '#000', border: '1px solid rgba(16,185,129,0.15)', padding: '10px', borderRadius: '6px' }}>
+                    <div style={{ fontSize: '10px', color: '#10b981', fontWeight: 'bold' }}>USDT (TRC-20)</div>
+                    <div style={{ fontSize: '11px', color: '#fff', fontFamily: 'monospace', wordBreak: 'break-all', marginTop: '4px' }}>
+                      {import.meta.env.VITE_WALLET_USDT || "INSERISCI_IL_TUO_INDIRIZZO_USDT_TRC20"}
+                    </div>
                   </div>
+                  
+                  {/* BTC */}
+                  <div style={{ background: '#000', border: '1px solid rgba(16,185,129,0.15)', padding: '10px', borderRadius: '6px' }}>
+                    <div style={{ fontSize: '10px', color: '#f7931a', fontWeight: 'bold' }}>Bitcoin (BTC)</div>
+                    <div style={{ fontSize: '11px', color: '#fff', fontFamily: 'monospace', wordBreak: 'break-all', marginTop: '4px' }}>
+                      {import.meta.env.VITE_WALLET_BTC || "INSERISCI_IL_TUO_INDIRIZZO_BTC"}
+                    </div>
+                  </div>
+
+                  {/* LTC */}
+                  <div style={{ background: '#000', border: '1px solid rgba(16,185,129,0.15)', padding: '10px', borderRadius: '6px' }}>
+                    <div style={{ fontSize: '10px', color: '#345d9d', fontWeight: 'bold' }}>Litecoin (LTC)</div>
+                    <div style={{ fontSize: '11px', color: '#fff', fontFamily: 'monospace', wordBreak: 'break-all', marginTop: '4px' }}>
+                      {import.meta.env.VITE_WALLET_LTC || "INSERISCI_IL_TUO_INDIRIZZO_LTC"}
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ fontSize: '11px', color: '#a3a3a3', lineHeight: '1.4', background: 'rgba(16,185,129,0.05)', padding: '10px', borderLeft: '3px solid #10b981', marginBottom: '16px', borderRadius: '0 4px 4px 0' }}>
+                  Una volta fatto, invia l'ID transazione (o uno screen) e il tuo <strong>User ID</strong> all'amministratore (es. via Telegram o Email) per l'abilitazione.
+                </div>
+
+                {/* Clerk User ID display */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#000', padding: '8px 12px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.05)', marginBottom: '20px' }}>
+                  <div style={{ flex: 1, fontSize: '10px', color: '#a3a3a3', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    USER ID: {userId}
+                  </div>
+                  <button 
+                    onClick={() => {
+                      navigator.clipboard.writeText(userId);
+                      alert('ID copiato!');
+                    }} 
+                    style={{ background: '#10b981', color: '#000', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '10px', fontWeight: 'bold' }}
+                  >
+                    Copy
+                  </button>
+                </div>
+
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button onClick={unlockPremium} style={{ flex: 1, background: 'rgba(16,185,129,0.1)', color: '#10b981', border: '1px solid rgba(16,185,129,0.3)', padding: '10px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold', fontSize: '12px' }}>
+                    {isProcessingPayment ? 'Processing...' : 'Simulate Payment (Dev)'}
+                  </button>
+                  <button onClick={() => setShowPaywallModal(false)} style={{ flex: 1, background: 'transparent', color: '#737373', border: '1px solid #404040', padding: '10px', borderRadius: '6px', cursor: 'pointer', fontSize: '12px' }}>
+                    Close
+                  </button>
                 </div>
               </div>
             </div>
