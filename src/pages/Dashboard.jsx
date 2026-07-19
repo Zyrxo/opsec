@@ -3,7 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { Show, RedirectToSignIn, useAuth, useUser, SignOutButton } from '@clerk/react';
 import { 
   LayoutDashboard, Fingerprint, FileX2, Shield, UserX, 
-  FileText, HardDrive, Trash2, Search, Menu, X, ArrowLeft, Lock 
+  FileText, HardDrive, Trash2, Search, Menu, X, ArrowLeft, Lock,
+  Key, Image 
 } from 'lucide-react';
 
 import FingerprintAnalyser from '../tools/FingerprintAnalyser';
@@ -14,6 +15,10 @@ import DataBrokerRemoval from '../tools/DataBrokerRemoval';
 import HardeningGuide from '../tools/HardeningGuide';
 import SocialSanitizer from '../tools/SocialSanitizer';
 import DnsIntel from '../tools/DnsIntel';
+import DataShredder from '../tools/DataShredder';
+import LogSanitizer from '../tools/LogSanitizer';
+import PgpSuite from '../tools/PgpSuite';
+import Steganography from '../tools/Steganography';
 
 const TOOLS = [
   { key: 'overview', label: 'Overview', icon: LayoutDashboard },
@@ -25,6 +30,10 @@ const TOOLS = [
   { key: 'hardening', label: 'Hardening', icon: HardDrive, desc: 'OS hardening checklists for Windows, Mac, Linux' },
   { key: 'social', label: 'Social Sanitizer', icon: Trash2, desc: 'Lock down your social media privacy settings' },
   { key: 'dns-intel', label: 'DNS & IP Intel', icon: Search, desc: 'DNS lookups and IP geolocation intelligence' },
+  { key: 'shredder', label: 'Data Shredder', icon: Trash2, desc: 'Securely overwrite text and small files using military-grade algorithms' },
+  { key: 'sanitizer', label: 'Log Sanitizer', icon: FileText, desc: 'Automatically redact IPs, emails, and sensitive strings from text dumps' },
+  { key: 'pgp', label: 'PGP Suite', icon: Key, desc: 'Generate keys, encrypt, and sign messages purely client-side' },
+  { key: 'stegano', label: 'Steganography', icon: Image, desc: 'Hide encrypted messages within innocuous-looking images' },
 ];
 
 export default function Dashboard() {
@@ -73,7 +82,7 @@ export default function Dashboard() {
   const currentTool = TOOLS.find(t => t.key === currentToolKey) || TOOLS[0];
 
   const renderToolComponent = () => {
-    const isPremiumTool = currentToolKey !== 'overview' && currentToolKey !== 'dns-intel' && currentToolKey !== 'social' && currentToolKey !== 'burner';
+    const isPremiumTool = currentToolKey !== 'overview' && currentToolKey !== 'dns-intel' && currentToolKey !== 'social' && currentToolKey !== 'burner' && currentToolKey !== 'shredder' && currentToolKey !== 'sanitizer';
     if (isPremiumTool && !isPremiumUnlocked) {
       return (
         <div style={{
@@ -98,7 +107,11 @@ export default function Dashboard() {
       case 'hardening': return <HardeningGuide />;
       case 'social': return <SocialSanitizer />;
       case 'dns-intel': return <DnsIntel />;
-      default: return <OverviewCards />;
+      case 'shredder': return <DataShredder />;
+      case 'sanitizer': return <LogSanitizer />;
+      case 'pgp': return <PgpSuite />;
+      case 'stegano': return <Steganography />;
+      default: return <OverviewCards isPremiumUnlocked={isPremiumUnlocked} setShowPaywallModal={setShowPaywallModal} />;
     }
   };
 
@@ -192,7 +205,7 @@ export default function Dashboard() {
             </div>
 
             <nav style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginBottom: '16px' }}>
-              {TOOLS.filter(t => ['fingerprint', 'metadata', 'threat-model', 'data-broker', 'hardening'].includes(t.key)).map((item) => {
+              {TOOLS.filter(t => ['fingerprint', 'metadata', 'threat-model', 'data-broker', 'hardening', 'pgp', 'stegano'].includes(t.key)).map((item) => {
                 const isActive = currentToolKey === item.key;
                 const Icon = item.icon;
                 return (
@@ -234,7 +247,7 @@ export default function Dashboard() {
             </div>
 
             <nav style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '2px', overflowY: 'auto' }}>
-              {TOOLS.filter(t => ['burner', 'social', 'dns-intel'].includes(t.key)).map((item) => {
+              {TOOLS.filter(t => ['burner', 'social', 'dns-intel', 'shredder', 'sanitizer'].includes(t.key)).map((item) => {
                 const isActive = currentToolKey === item.key;
                 const Icon = item.icon;
                 return (
