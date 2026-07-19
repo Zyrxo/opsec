@@ -312,17 +312,6 @@ export default function Dashboard() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 {/* Custom User Profile Badge */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.05)', padding: '6px 12px', borderRadius: '8px' }}>
-                  <div style={{
-                    width: '28px', height: '28px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #1f1f1f 0%, #111111 100%)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '11px', fontWeight: 'bold', color: '#a3a3a3',
-                    textTransform: 'uppercase'
-                  }}>
-                    {user?.username?.substring(0, 2) || user?.firstName?.substring(0, 2) || 'OP'}
-                  </div>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                     <span style={{ fontSize: '11px', fontWeight: '600', color: '#fff' }}>
                       {user?.username || user?.firstName || user?.primaryEmailAddress?.emailAddress?.split('@')[0] || 'User'}
