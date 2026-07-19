@@ -362,7 +362,9 @@ export default function Dashboard() {
               </div>
             </header>
 
-            {renderToolComponent()}
+            <div style={{ maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
+              {renderToolComponent()}
+            </div>
           </main>
 
           {/* Paywall Modal */}
@@ -446,37 +448,42 @@ function OverviewCards({ isPremiumUnlocked, setShowPaywallModal }) {
   
   return (
     <div style={{ fontFamily: "'JetBrains Mono', monospace", color: '#fff' }}>
-      {/* Email Verification Banner */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        background: 'rgba(239, 68, 68, 0.05)',
-        border: '1px solid rgba(239, 68, 68, 0.15)',
-        padding: '12px 20px',
-        borderRadius: '8px',
-        marginBottom: '24px'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <ShieldAlert size={20} style={{ color: '#ef4444' }} />
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#fff' }}>Verify your email</span>
-            <span style={{ fontSize: '10px', color: '#737373', marginTop: '2px' }}>Verify your email to unlock 5 free searches per month</span>
-          </div>
-        </div>
-        <button style={{
-          background: '#fff',
-          color: '#000',
-          border: 'none',
-          padding: '6px 14px',
-          borderRadius: '4px',
-          fontSize: '10px',
-          fontWeight: 'bold',
-          cursor: 'pointer'
+      {/* Promotion/Upgrade Banner */}
+      {!isPremiumUnlocked && (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          background: 'rgba(16, 185, 129, 0.05)',
+          border: '1px solid rgba(16, 185, 129, 0.15)',
+          padding: '12px 20px',
+          borderRadius: '8px',
+          marginBottom: '24px'
         }}>
-          Verify now
-        </button>
-      </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <ShieldAlert size={20} style={{ color: '#10b981' }} />
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#fff' }}>Secure Your Digital Workspace</span>
+              <span style={{ fontSize: '10px', color: '#737373', marginTop: '2px' }}>Upgrade to the Bulletproof Suite to permanently unlock all 11+ security modules.</span>
+            </div>
+          </div>
+          <button 
+            onClick={() => setShowPaywallModal(true)}
+            style={{
+              background: '#10b981',
+              color: '#000',
+              border: 'none',
+              padding: '6px 14px',
+              borderRadius: '4px',
+              fontSize: '10px',
+              fontWeight: 'bold',
+              cursor: 'pointer'
+            }}
+          >
+            Upgrade now
+          </button>
+        </div>
+      )}
 
       {/* Welcome Row */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
@@ -493,8 +500,10 @@ function OverviewCards({ isPremiumUnlocked, setShowPaywallModal }) {
           </div>
         </div>
         <div style={{ textAlign: 'right' }}>
-          <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#fff' }}>0 Credits</div>
-          <div style={{ fontSize: '9px', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>Available</div>
+          <div style={{ fontSize: '14px', fontWeight: 'bold', color: isPremiumUnlocked ? '#10b981' : '#737373' }}>
+            {isPremiumUnlocked ? 'Premium Operator' : 'Free Operator'}
+          </div>
+          <div style={{ fontSize: '9px', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>License Status</div>
         </div>
       </div>
 
@@ -509,21 +518,27 @@ function OverviewCards({ isPremiumUnlocked, setShowPaywallModal }) {
           <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#fff', marginBottom: '4px' }}>
             {isPremiumUnlocked ? 'Operator' : 'Guest'}
           </div>
-          <div style={{ fontSize: '10px', color: '#737373', marginBottom: '16px' }}>0 credits remaining</div>
-          <button onClick={() => setShowPaywallModal(true)} style={{ background: 'none', border: 'none', color: '#10b981', fontSize: '11px', cursor: 'pointer', padding: 0, textDecoration: 'underline', textAlign: 'left', width: 'fit-content' }}>
-            Buy credits →
-          </button>
+          <div style={{ fontSize: '10px', color: '#737373', marginBottom: '16px' }}>
+            {isPremiumUnlocked ? 'Full Suite Active' : 'Basic Suite Active'}
+          </div>
+          {!isPremiumUnlocked ? (
+            <button onClick={() => setShowPaywallModal(true)} style={{ background: 'none', border: 'none', color: '#10b981', fontSize: '11px', cursor: 'pointer', padding: 0, textDecoration: 'underline', textAlign: 'left', width: 'fit-content' }}>
+              Upgrade Suite →
+            </button>
+          ) : (
+            <span style={{ color: '#10b981', fontSize: '11px' }}>Active Lifetime</span>
+          )}
         </div>
 
-        {/* Card 2: Recent Activity */}
+        {/* Card 2: Environment Integrity */}
         <div style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#737373', fontSize: '10px', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             <Activity size={12} />
-            <span>Recent Activity</span>
+            <span>Local Integrity</span>
           </div>
-          <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#fff', marginBottom: '4px' }}>0</div>
-          <div style={{ fontSize: '10px', color: '#737373', marginBottom: '16px' }}>Actions recorded today</div>
-          <span style={{ color: '#737373', fontSize: '11px', cursor: 'default' }}>View All →</span>
+          <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#10b981', marginBottom: '4px' }}>Secure</div>
+          <div style={{ fontSize: '10px', color: '#737373', marginBottom: '16px' }}>Zero-knowledge execution</div>
+          <span style={{ color: '#737373', fontSize: '11px', cursor: 'default' }}>100% Client-Side</span>
         </div>
 
         {/* Card 3: System Health */}
@@ -566,8 +581,8 @@ function OverviewCards({ isPremiumUnlocked, setShowPaywallModal }) {
               {[
                 { label: 'Username', val: user?.username || user?.firstName || 'Operator' },
                 { label: 'Email', val: user?.primaryEmailAddress?.emailAddress || 'N/A' },
-                { label: 'Credits', val: '0' },
-                { label: 'Activities today', val: '0' },
+                { label: 'Client-Side', val: '100% Secure' },
+                { label: 'Cryptography', val: 'WebCrypto API' },
                 { label: 'Status', val: isPremiumUnlocked ? '• Operator' : '• Guest', isStatus: true }
               ].map((row, idx) => (
                 <tr key={idx} style={{ borderBottom: idx === 4 ? 'none' : '1px solid rgba(255,255,255,0.03)' }}>
