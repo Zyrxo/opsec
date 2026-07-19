@@ -23,7 +23,7 @@ export default function Landing() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   return (
-    <div style={{ backgroundColor: '#000', color: '#fff', minHeight: '100vh', fontFamily: 'Inter, system-ui, sans-serif' }}>
+    <div style={{ backgroundColor: '#000', color: '#fff', minHeight: '100vh', fontFamily: 'Inter, system-ui, sans-serif', position: 'relative', overflow: 'hidden' }}>
       
       {/* Background Elements */}
       <div className="bg-grid"></div>
@@ -140,24 +140,51 @@ export default function Landing() {
             </div>
           </div>
           
+          <style>{`
+            @keyframes rotate-clockwise {
+              0% { transform: translate(-50%, -50%) rotate(0deg); }
+              100% { transform: translate(-50%, -50%) rotate(360deg); }
+            }
+            @keyframes rotate-counter {
+              0% { transform: translate(-50%, -50%) rotate(360deg); }
+              100% { transform: translate(-50%, -50%) rotate(0deg); }
+            }
+            @keyframes pulse-glow {
+              0% { box-shadow: 0 0 20px rgba(16,185,129,0.2); }
+              50% { box-shadow: 0 0 40px rgba(16,185,129,0.5); }
+              100% { box-shadow: 0 0 20px rgba(16,185,129,0.2); }
+            }
+          `}</style>
+          
           <div className="hero-visual anim-float" style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div style={{ position: 'relative', width: '350px', height: '350px', margin: 'auto' }}>
               {/* Center Icon */}
-              <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '80px', height: '80px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 10, boxShadow: '0 0 30px rgba(16,185,129,0.2)' }}>
+              <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '80px', height: '80px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 10, animation: 'pulse-glow 3s infinite ease-in-out' }}>
                 <Shield size={36} color="#10b981" />
               </div>
               
-              {/* Orbital Rings */}
-              <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '220px', height: '220px', border: '1px dashed rgba(16,185,129,0.2)', borderRadius: '50%' }}></div>
-              <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '320px', height: '320px', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '50%' }}></div>
+              {/* Inner Orbital Ring (dashed) */}
+              <div style={{ position: 'absolute', top: '50%', left: '50%', width: '220px', height: '220px', border: '1px dashed rgba(16,185,129,0.2)', borderRadius: '50%', animation: 'rotate-counter 25s linear infinite' }}></div>
               
-              {/* Outer Icons */}
-              <div style={{ position: 'absolute', top: '0', left: '50%', transform: 'translate(-50%, -50%)', width: '48px', height: '48px', background: '#09090b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Lock size={20} color="rgba(255,255,255,0.7)" /></div>
-              <div style={{ position: 'absolute', top: '25%', left: '93.3%', transform: 'translate(-50%, -50%)', width: '48px', height: '48px', background: '#09090b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><EyeOff size={20} color="rgba(255,255,255,0.7)" /></div>
-              <div style={{ position: 'absolute', top: '75%', left: '93.3%', transform: 'translate(-50%, -50%)', width: '48px', height: '48px', background: '#09090b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Search size={20} color="rgba(255,255,255,0.7)" /></div>
-              <div style={{ position: 'absolute', top: '100%', left: '50%', transform: 'translate(-50%, -50%)', width: '48px', height: '48px', background: '#09090b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Fingerprint size={20} color="rgba(255,255,255,0.7)" /></div>
-              <div style={{ position: 'absolute', top: '75%', left: '6.7%', transform: 'translate(-50%, -50%)', width: '48px', height: '48px', background: '#09090b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><FileX2 size={20} color="rgba(255,255,255,0.7)" /></div>
-              <div style={{ position: 'absolute', top: '25%', left: '6.7%', transform: 'translate(-50%, -50%)', width: '48px', height: '48px', background: '#09090b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><UserX size={20} color="rgba(255,255,255,0.7)" /></div>
+              {/* Outer Orbital Ring (solid) and Rotating Icons */}
+              <div style={{ 
+                position: 'absolute', 
+                top: '50%', 
+                left: '50%', 
+                width: '320px', 
+                height: '320px', 
+                border: '1px solid rgba(255,255,255,0.05)', 
+                borderRadius: '50%',
+                animation: 'rotate-clockwise 35s linear infinite',
+                transformOrigin: 'center'
+              }}>
+                <div style={{ position: 'absolute', top: '0', left: '50%', transform: 'translate(-50%, -50%)', width: '48px', height: '48px', background: '#09090b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Lock size={20} color="rgba(255,255,255,0.7)" /></div>
+                <div style={{ position: 'absolute', top: '25%', left: '93.3%', transform: 'translate(-50%, -50%)', width: '48px', height: '48px', background: '#09090b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><EyeOff size={20} color="rgba(255,255,255,0.7)" /></div>
+                <div style={{ position: 'absolute', top: '75%', left: '93.3%', transform: 'translate(-50%, -50%)', width: '48px', height: '48px', background: '#09090b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Search size={20} color="rgba(255,255,255,0.7)" /></div>
+                <div style={{ position: 'absolute', top: '100%', left: '50%', transform: 'translate(-50%, -50%)', width: '48px', height: '48px', background: '#09090b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Fingerprint size={20} color="rgba(255,255,255,0.7)" /></div>
+                <div style={{ position: 'absolute', top: '75%', left: '6.7%', transform: 'translate(-50%, -50%)', width: '48px', height: '48px', background: '#09090b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><FileX2 size={20} color="rgba(255,255,255,0.7)" /></div>
+                <div style={{ position: 'absolute', top: '25%', left: '6.7%', transform: 'translate(-50%, -50%)', width: '48px', height: '48px', background: '#09090b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><UserX size={20} color="rgba(255,255,255,0.7)" /></div>
+              </div>
             </div>
           </div>
 

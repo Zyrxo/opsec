@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Show, RedirectToSignIn, UserButton, useAuth, useUser } from '@clerk/react';
+import { Show, RedirectToSignIn, useAuth, useUser, SignOutButton } from '@clerk/react';
 import { 
   LayoutDashboard, Fingerprint, FileX2, Shield, UserX, 
   FileText, HardDrive, Trash2, Search, Menu, X, ArrowLeft, Lock 
@@ -73,7 +73,7 @@ export default function Dashboard() {
   const currentTool = TOOLS.find(t => t.key === currentToolKey) || TOOLS[0];
 
   const renderToolComponent = () => {
-    const isPremiumTool = currentToolKey !== 'overview' && currentToolKey !== 'dns-intel';
+    const isPremiumTool = currentToolKey !== 'overview' && currentToolKey !== 'dns-intel' && currentToolKey !== 'social' && currentToolKey !== 'burner';
     if (isPremiumTool && !isPremiumUnlocked) {
       return (
         <div style={{
@@ -106,8 +106,14 @@ export default function Dashboard() {
     <>
       <style>{`@keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }`}</style>
       <Show when="signed-in">
-        <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#030303', color: '#fff', fontFamily: 'Inter, system-ui, sans-serif' }}>
+        <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#030303', color: '#fff', fontFamily: 'Inter, system-ui, sans-serif', position: 'relative', overflow: 'hidden' }}>
           
+          {/* Background Elements */}
+          <div className="bg-grid"></div>
+          <div className="bg-grid-lines"></div>
+          <div className="bg-radial"></div>
+          <div className="bg-fade"></div>
+
           {/* Mobile Overlay */}
           {isMobileMenuOpen && (
             <div 
@@ -132,7 +138,7 @@ export default function Dashboard() {
           }}>
             
             {/* Logo */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '0 10px', marginBottom: '32px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '0 10px', marginBottom: '24px' }}>
               <div style={{
                 width: '32px', height: '32px', 
                 background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
@@ -148,27 +154,16 @@ export default function Dashboard() {
               )}
             </div>
 
-            <div style={{
-              fontFamily: '"JetBrains Mono", monospace',
-              fontSize: '10px',
-              color: '#737373',
-              textTransform: 'uppercase',
-              letterSpacing: '0.1em',
-              marginTop: '12px',
-              marginBottom: '12px',
-              paddingLeft: '14px'
-            }}>
-              STANDARD SUITE (FREE)
-            </div>
-
-            <nav style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-              {TOOLS.filter(t => t.key === 'overview' || t.key === 'dns-intel').map((item) => {
-                const isActive = currentToolKey === item.key;
+            {/* Overview standalone link at top */}
+            <nav style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginBottom: '16px' }}>
+              {(() => {
+                const item = TOOLS.find(t => t.key === 'overview');
+                const isActive = currentToolKey === 'overview';
                 const Icon = item.icon;
                 return (
                   <Link
                     key={item.key}
-                    to={item.key === 'overview' ? '/dashboard' : `/dashboard/${item.key}`}
+                    to="/dashboard"
                     onClick={() => isMobile && setIsMobileMenuOpen(false)}
                     style={{
                       display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', borderRadius: '8px', fontSize: '13px', color: isActive ? '#10b981' : '#a3a3a3', textDecoration: 'none', backgroundColor: isActive ? 'rgba(16,185,129,0.1)' : 'transparent', transition: 'all 0.2s', marginBottom: '2px',
@@ -179,8 +174,8 @@ export default function Dashboard() {
                     <Icon size={16} />
                     {item.label}
                   </Link>
-                )
-              })}
+                );
+              })()}
             </nav>
 
             <div style={{
@@ -189,15 +184,15 @@ export default function Dashboard() {
               color: '#737373',
               textTransform: 'uppercase',
               letterSpacing: '0.1em',
-              marginTop: '24px',
+              marginTop: '8px',
               marginBottom: '12px',
               paddingLeft: '14px'
             }}>
               BULLETPROOF SUITE (PREMIUM)
             </div>
 
-            <nav style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '2px', overflowY: 'auto' }}>
-              {TOOLS.filter(t => t.key !== 'overview' && t.key !== 'dns-intel').map((item) => {
+            <nav style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginBottom: '16px' }}>
+              {TOOLS.filter(t => ['fingerprint', 'metadata', 'threat-model', 'data-broker', 'hardening'].includes(t.key)).map((item) => {
                 const isActive = currentToolKey === item.key;
                 const Icon = item.icon;
                 return (
@@ -220,6 +215,41 @@ export default function Dashboard() {
                     <Icon size={16} />
                     <span style={{ flex: 1 }}>{item.label}</span>
                     {!isPremiumUnlocked && <Lock size={12} />}
+                  </Link>
+                )
+              })}
+            </nav>
+
+            <div style={{
+              fontFamily: '"JetBrains Mono", monospace',
+              fontSize: '10px',
+              color: '#737373',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              marginTop: '8px',
+              marginBottom: '12px',
+              paddingLeft: '14px'
+            }}>
+              STANDARD SUITE (FREE)
+            </div>
+
+            <nav style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '2px', overflowY: 'auto' }}>
+              {TOOLS.filter(t => ['burner', 'social', 'dns-intel'].includes(t.key)).map((item) => {
+                const isActive = currentToolKey === item.key;
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.key}
+                    to={`/dashboard/${item.key}`}
+                    onClick={() => isMobile && setIsMobileMenuOpen(false)}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', borderRadius: '8px', fontSize: '13px', color: isActive ? '#10b981' : '#a3a3a3', textDecoration: 'none', backgroundColor: isActive ? 'rgba(16,185,129,0.1)' : 'transparent', transition: 'all 0.2s', marginBottom: '2px',
+                    }}
+                    onMouseEnter={(e) => { if (!isActive) { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.03)'; e.currentTarget.style.color = '#fff'; } }}
+                    onMouseLeave={(e) => { if (!isActive) { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#a3a3a3'; } }}
+                  >
+                    <Icon size={16} />
+                    {item.label}
                   </Link>
                 )
               })}
@@ -252,7 +282,9 @@ export default function Dashboard() {
             marginLeft: isMobile ? '0' : '240px',
             padding: '24px 32px',
             minHeight: '100vh',
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            position: 'relative',
+            zIndex: 10
           }}>
             
             {/* Top bar */}
@@ -276,8 +308,55 @@ export default function Dashboard() {
                 )}
                 <h1 style={{ fontSize: '20px', fontWeight: '600', margin: 0 }}>{currentTool.label}</h1>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <UserButton afterSignOutUrl="/" />
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                {/* Custom User Profile Badge */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.05)', padding: '6px 12px', borderRadius: '8px' }}>
+                  <div style={{
+                    width: '28px', height: '28px',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #1f1f1f 0%, #111111 100%)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: '11px', fontWeight: 'bold', color: '#a3a3a3',
+                    textTransform: 'uppercase'
+                  }}>
+                    {user?.username?.substring(0, 2) || user?.firstName?.substring(0, 2) || 'OP'}
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                    <span style={{ fontSize: '11px', fontWeight: '600', color: '#fff' }}>
+                      {user?.username || user?.firstName || user?.primaryEmailAddress?.emailAddress?.split('@')[0] || 'User'}
+                    </span>
+                    <span style={{ 
+                      fontSize: '9px', 
+                      fontWeight: 'bold', 
+                      color: isPremiumUnlocked ? '#10b981' : '#737373',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      marginTop: '1px'
+                    }}>
+                      {isPremiumUnlocked ? 'Premium' : 'Free'}
+                    </span>
+                  </div>
+                </div>
+
+                <SignOutButton>
+                  <button style={{ 
+                    background: 'transparent', 
+                    border: '1px solid rgba(255,255,255,0.08)', 
+                    color: '#a3a3a3', 
+                    fontSize: '11px', 
+                    padding: '8px 14px', 
+                    borderRadius: '6px', 
+                    cursor: 'pointer',
+                    fontWeight: '500',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = '#a3a3a3'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}>
+                    Logout
+                  </button>
+                </SignOutButton>
               </div>
             </header>
 
@@ -359,7 +438,7 @@ export default function Dashboard() {
   );
 }
 
-function OverviewCards() {
+function OverviewCards({ isPremiumUnlocked, setShowPaywallModal }) {
   const toolsList = TOOLS.filter(t => t.key !== 'overview');
   
   return (
@@ -376,8 +455,19 @@ function OverviewCards() {
       }}>
         {toolsList.map(tool => {
           const Icon = tool.icon;
+          const isPremiumTool = tool.key !== 'dns-intel' && tool.key !== 'social' && tool.key !== 'burner';
           return (
-            <Link key={tool.key} to={`/dashboard/${tool.key}`} style={{ textDecoration: 'none' }}>
+            <Link 
+              key={tool.key} 
+              to={`/dashboard/${tool.key}`} 
+              onClick={(e) => {
+                if (isPremiumTool && !isPremiumUnlocked) {
+                  e.preventDefault();
+                  setShowPaywallModal(true);
+                }
+              }}
+              style={{ textDecoration: 'none' }}
+            >
               <div
                 style={{
                   background: 'linear-gradient(to bottom, #0a0a0a, #040404)',
@@ -388,7 +478,8 @@ function OverviewCards() {
                   height: '100%',
                   boxSizing: 'border-box',
                   display: 'flex',
-                  flexDirection: 'column'
+                  flexDirection: 'column',
+                  position: 'relative'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = 'rgba(16,185,129,0.2)';
@@ -399,8 +490,15 @@ function OverviewCards() {
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
-                <div style={{ color: '#10b981', marginBottom: '16px' }}>
-                  <Icon size={28} />
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                  <div style={{ color: '#10b981' }}>
+                    <Icon size={28} />
+                  </div>
+                  {isPremiumTool && !isPremiumUnlocked && (
+                    <div style={{ color: '#737373', display: 'flex', alignItems: 'center' }}>
+                      <Lock size={16} />
+                    </div>
+                  )}
                 </div>
                 <h3 style={{ fontSize: '15px', fontWeight: '600', color: '#fff', margin: '0 0 8px 0' }}>
                   {tool.label}
