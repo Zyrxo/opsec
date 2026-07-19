@@ -107,7 +107,7 @@ const hashString = (str) => {
   return Math.abs(hash).toString(16);
 };
 
-export default function FingerprintAnalyser() {
+export default function FingerprintAnalyser({ userId }) {
   const [scanning, setScanning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [results, setResults] = useState(null);
@@ -225,6 +225,10 @@ export default function FingerprintAnalyser() {
     const maxScore = 22;
     const uniquenessScore = Math.max(0, Math.round(((maxScore - exposedCount) / maxScore) * 100));
     data.score = uniquenessScore;
+
+    // Save to localStorage
+    const scoreKey = userId ? `opsec_fingerprint_score_${userId}` : 'opsec_fingerprint_score_guest';
+    localStorage.setItem(scoreKey, uniquenessScore.toString());
 
     setResults(data);
     setScanning(false);

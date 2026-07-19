@@ -99,7 +99,7 @@ export default function Dashboard() {
     }
 
     switch (currentToolKey) {
-      case 'fingerprint': return <FingerprintAnalyser />;
+      case 'fingerprint': return <FingerprintAnalyser userId={userId} />;
       case 'metadata': return <MetadataStripper />;
       case 'threat-model': return <ThreatModeling />;
       case 'burner': return <BurnerIdentity />;
@@ -446,6 +446,20 @@ function OverviewCards({ isPremiumUnlocked, setShowPaywallModal }) {
   const { user } = useUser();
   const toolsList = TOOLS.filter(t => t.key !== 'overview');
   
+  const scoreKey = user?.id ? `opsec_fingerprint_score_${user.id}` : 'opsec_fingerprint_score_guest';
+  const savedScore = localStorage.getItem(scoreKey);
+  const scoreVal = savedScore ? parseInt(savedScore, 10) : null;
+  
+  let scoreText = 'Not Scanned';
+  let scoreColor = '#737373';
+  if (scoreVal !== null) {
+    scoreText = `${scoreVal}%`;
+    if (scoreVal < 35) scoreColor = '#ef4444';
+    else if (scoreVal < 70) scoreColor = '#f97316';
+    else if (scoreVal < 85) scoreColor = '#eab308';
+    else scoreColor = '#10b981';
+  }
+
   return (
     <div style={{ fontFamily: "'JetBrains Mono', monospace", color: '#fff' }}>
       {/* Promotion/Upgrade Banner */}
@@ -581,13 +595,13 @@ function OverviewCards({ isPremiumUnlocked, setShowPaywallModal }) {
               {[
                 { label: 'Username', val: user?.username || user?.firstName || 'Operator' },
                 { label: 'Email', val: user?.primaryEmailAddress?.emailAddress || 'N/A' },
-                { label: 'Client-Side', val: '100% Secure' },
+                { label: 'Fingerprint Score', val: scoreText, color: scoreColor },
                 { label: 'Cryptography', val: 'WebCrypto API' },
                 { label: 'Status', val: isPremiumUnlocked ? '• Operator' : '• Guest', isStatus: true }
               ].map((row, idx) => (
                 <tr key={idx} style={{ borderBottom: idx === 4 ? 'none' : '1px solid rgba(255,255,255,0.03)' }}>
                   <td style={{ padding: '8px 0', color: '#737373' }}>{row.label}</td>
-                  <td style={{ padding: '8px 0', textAlign: 'right', color: row.isStatus ? (isPremiumUnlocked ? '#10b981' : '#737373') : '#fff', fontWeight: row.isStatus ? 'bold' : 'normal' }}>
+                  <td style={{ padding: '8px 0', textAlign: 'right', color: row.color ? row.color : (row.isStatus ? (isPremiumUnlocked ? '#10b981' : '#737373') : '#fff'), fontWeight: (row.isStatus || row.color) ? 'bold' : 'normal' }}>
                     {row.val}
                   </td>
                 </tr>
