@@ -372,58 +372,243 @@ export default function Landing() {
       {/* PRICING */}
       <section id="pricing" className="section" style={{ padding: '6rem 0' }}>
         <div className="container">
-          <div className="section-header" style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <div className="section-label" style={{ color: '#10b981', fontSize: '0.85rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '1rem' }}>Access</div>
-            <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '1rem' }}>Simple Pricing. No Subscriptions.</h2>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '1rem', fontFamily: "'Share Tech Mono', monospace" }}>&gt; SELECT_PACKAGE</h2>
+            <p style={{ color: '#737373', fontSize: '0.9rem', letterSpacing: '2px', fontFamily: "'JetBrains Mono', monospace" }}>[INITIALIZING PAYMENT SYSTEMS...]</p>
           </div>
           
-          <div className="pricing-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '900px', margin: '0 auto' }}>
+          <div className="pricing-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '1100px', margin: '0 auto' }}>
             
-            {/* Free Tier */}
-            <div className="pricing-card" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', padding: '2.5rem', display: 'flex', flexDirection: 'column' }}>
-              <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: 'rgba(255,255,255,0.8)' }}>Basic Opsec</h3>
-              <div className="pricing-price" style={{ fontSize: '3rem', fontWeight: '800', marginBottom: '0.5rem' }}>€0</div>
-              <p className="pricing-desc" style={{ color: 'rgba(255,255,255,0.5)', marginBottom: '2rem', fontSize: '0.9rem' }}>Essential tools for casual security.</p>
-              
-              <ul className="pricing-features" style={{ listStyle: 'none', padding: 0, margin: '0 0 2rem 0', flex: 1 }}>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', fontSize: '0.95rem' }}>
-                  <CheckCircle2 size={18} style={{ color: '#10b981' }} /> <span>Basic DNS lookups</span>
-                </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', fontSize: '0.95rem' }}>
-                  <CheckCircle2 size={18} style={{ color: '#10b981' }} /> <span>EXIF Scrubber (Max 5MB)</span>
-                </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', fontSize: '0.95rem' }}>
-                  <CheckCircle2 size={18} style={{ color: '#10b981' }} /> <span>Log Sanitizer (Basic regex)</span>
-                </li>
-              </ul>
-              
-              <Link to="/dashboard" className="btn-ghost" style={{ display: 'block', width: '100%', textAlign: 'center', padding: '0.875rem', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', textDecoration: 'none', fontWeight: '600' }}>Access Free Tools</Link>
+            {/* Lite Tier */}
+            <div style={{
+              background: '#040404',
+              border: '1px solid rgba(255,255,255,0.06)',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'relative',
+              fontFamily: "'JetBrains Mono', monospace"
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', background: '#0a0a0a', borderBottom: '1px solid rgba(255,255,255,0.04)', padding: '12px 16px' }}>
+                <div style={{ display: 'flex', gap: '6px', marginRight: '16px' }}>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444' }}></div>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#eab308' }}></div>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }}></div>
+                </div>
+                <span style={{ fontSize: '10px', color: '#737373' }}>root@cloudsint:~/lite</span>
+              </div>
+
+              <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: '#737373', marginBottom: '16px' }}>
+                  <span>$</span>
+                  <span>cat package_info.txt</span>
+                </div>
+
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff', margin: '0 0 4px 0' }}>Lite</h3>
+                <div style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#fff', marginBottom: '24px' }}>
+                  $19.99<span style={{ fontSize: '11px', color: '#737373', fontWeight: 'normal' }}>/month</span>
+                </div>
+
+                <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: '#737373', marginBottom: '16px' }}>
+                  <span>$</span>
+                  <span>./list_features.sh</span>
+                </div>
+
+                <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', flex: 1 }}>
+                  {[
+                    { text: '75 credits per month', isGreen: false },
+                    { text: 'Unused credits roll over', isGreen: false },
+                    { text: 'Email lookup', isGreen: false },
+                    { text: 'Standard support', isGreen: false },
+                    { text: 'System ready for deployment', isGreen: true }
+                  ].map((feat, idx) => (
+                    <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px', fontSize: '12px', color: feat.isGreen ? '#10b981' : '#a3a3a3' }}>
+                      <span style={{ color: '#10b981' }}>✓</span>
+                      <span>{feat.text}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <Link to="/dashboard" style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                    background: '#040404', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '6px',
+                    padding: '10px', color: '#fff', fontSize: '11px', fontWeight: 'bold', textDecoration: 'none',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10b981'; e.currentTarget.style.boxShadow = '0 0 10px rgba(16,185,129,0.2)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = 'none'; }}>
+                    <span style={{ fontSize: '12px' }}>₿</span> Pay with Crypto
+                  </Link>
+                  <Link to="/dashboard" style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                    background: '#040404', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '6px',
+                    padding: '10px', color: '#fff', fontSize: '11px', fontWeight: 'bold', textDecoration: 'none',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10b981'; e.currentTarget.style.boxShadow = '0 0 10px rgba(16,185,129,0.2)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = 'none'; }}>
+                    <span style={{ fontSize: '10px' }}>💳</span> Pay with Card
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Normal Tier */}
+            <div style={{
+              background: '#040404',
+              border: '1px solid rgba(255,255,255,0.06)',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'relative',
+              fontFamily: "'JetBrains Mono', monospace"
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', background: '#0a0a0a', borderBottom: '1px solid rgba(255,255,255,0.04)', padding: '12px 16px' }}>
+                <div style={{ display: 'flex', gap: '6px', marginRight: '16px' }}>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444' }}></div>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#eab308' }}></div>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }}></div>
+                </div>
+                <span style={{ fontSize: '10px', color: '#737373' }}>root@cloudsint:~/normal</span>
+                <span style={{ marginLeft: 'auto', background: '#fff', color: '#000', fontSize: '8px', fontWeight: 'bold', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Popular</span>
+              </div>
+
+              <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: '#737373', marginBottom: '16px' }}>
+                  <span>$</span>
+                  <span>cat package_info.txt</span>
+                </div>
+
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff', margin: '0 0 4px 0' }}>Normal</h3>
+                <div style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#fff', marginBottom: '24px' }}>
+                  $49.99<span style={{ fontSize: '11px', color: '#737373', fontWeight: 'normal' }}>/month</span>
+                </div>
+
+                <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: '#737373', marginBottom: '16px' }}>
+                  <span>$</span>
+                  <span>./list_features.sh</span>
+                </div>
+
+                <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', flex: 1 }}>
+                  {[
+                    { text: '200 credits per month', isGreen: false },
+                    { text: 'Unused credits roll over', isGreen: false },
+                    { text: 'Advanced threat intelligence', isGreen: false },
+                    { text: 'Full OSINT toolkit', isGreen: false },
+                    { text: 'Priority support', isGreen: false },
+                    { text: 'System ready for deployment', isGreen: true }
+                  ].map((feat, idx) => (
+                    <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px', fontSize: '12px', color: feat.isGreen ? '#10b981' : '#a3a3a3' }}>
+                      <span style={{ color: '#10b981' }}>✓</span>
+                      <span>{feat.text}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <Link to="/dashboard" style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                    background: '#040404', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '6px',
+                    padding: '10px', color: '#fff', fontSize: '11px', fontWeight: 'bold', textDecoration: 'none',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10b981'; e.currentTarget.style.boxShadow = '0 0 10px rgba(16,185,129,0.2)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = 'none'; }}>
+                    <span style={{ fontSize: '12px' }}>₿</span> Pay with Crypto
+                  </Link>
+                  <Link to="/dashboard" style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                    background: '#040404', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '6px',
+                    padding: '10px', color: '#fff', fontSize: '11px', fontWeight: 'bold', textDecoration: 'none',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10b981'; e.currentTarget.style.boxShadow = '0 0 10px rgba(16,185,129,0.2)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = 'none'; }}>
+                    <span style={{ fontSize: '10px' }}>💳</span> Pay with Card
+                  </Link>
+                </div>
+              </div>
             </div>
 
             {/* Premium Tier */}
-            <div className="pricing-card" style={{ background: 'linear-gradient(180deg, rgba(16,185,129,0.05) 0%, rgba(0,0,0,0) 100%)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '12px', padding: '2.5rem', display: 'flex', flexDirection: 'column', position: 'relative' }}>
-              <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translate(-50%, -50%)', background: '#10b981', color: '#000', padding: '0.25rem 1rem', borderRadius: '999px', fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase' }}>Recommended</div>
-              
-              <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: '#10b981' }}>Premium Operator</h3>
-              <div className="pricing-price" style={{ fontSize: '3rem', fontWeight: '800', marginBottom: '0.5rem' }}>€15<span style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.5)', fontWeight: 'normal' }}> /lifetime</span></div>
-              <p className="pricing-desc" style={{ color: 'rgba(255,255,255,0.5)', marginBottom: '2rem', fontSize: '0.9rem' }}>Full arsenal for dedicated security.</p>
-              
-              <ul className="pricing-features" style={{ listStyle: 'none', padding: 0, margin: '0 0 2rem 0', flex: 1 }}>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', fontSize: '0.95rem' }}>
-                  <CheckCircle2 size={18} style={{ color: '#10b981' }} /> <span>Advanced DNS Intel + History</span>
-                </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', fontSize: '0.95rem' }}>
-                  <CheckCircle2 size={18} style={{ color: '#10b981' }} /> <span>Unlimited file sizes</span>
-                </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', fontSize: '0.95rem' }}>
-                  <CheckCircle2 size={18} style={{ color: '#10b981' }} /> <span>All 7+ Premium Tools</span>
-                </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', fontSize: '0.95rem' }}>
-                  <CheckCircle2 size={18} style={{ color: '#10b981' }} /> <span>Priority Support</span>
-                </li>
-              </ul>
-              
-              <Link to="/dashboard" className="btn-primary" style={{ display: 'block', width: '100%', textAlign: 'center', padding: '0.875rem', borderRadius: '6px', background: '#10b981', color: '#000', border: '1px solid #10b981', boxShadow: '0 0 20px rgba(16,185,129,0.3)', textDecoration: 'none', fontWeight: '600' }}>Get Premium</Link>
+            <div style={{
+              background: '#040404',
+              border: '1px solid rgba(255,255,255,0.06)',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'relative',
+              fontFamily: "'JetBrains Mono', monospace"
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', background: '#0a0a0a', borderBottom: '1px solid rgba(255,255,255,0.04)', padding: '12px 16px' }}>
+                <div style={{ display: 'flex', gap: '6px', marginRight: '16px' }}>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444' }}></div>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#eab308' }}></div>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }}></div>
+                </div>
+                <span style={{ fontSize: '10px', color: '#737373' }}>root@cloudsint:~/premium</span>
+              </div>
+
+              <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: '#737373', marginBottom: '16px' }}>
+                  <span>$</span>
+                  <span>cat package_info.txt</span>
+                </div>
+
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff', margin: '0 0 4px 0' }}>Premium</h3>
+                <div style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#fff', marginBottom: '24px' }}>
+                  $99.99<span style={{ fontSize: '11px', color: '#737373', fontWeight: 'normal' }}>/month</span>
+                </div>
+
+                <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: '#737373', marginBottom: '16px' }}>
+                  <span>$</span>
+                  <span>./list_features.sh</span>
+                </div>
+
+                <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', flex: 1 }}>
+                  {[
+                    { text: '500 credits per month', isGreen: false },
+                    { text: 'Unused credits roll over', isGreen: false },
+                    { text: 'Real-time threat intelligence', isGreen: false },
+                    { text: 'Advanced analytics', isGreen: false },
+                    { text: '24/7 priority support', isGreen: false },
+                    { text: 'Intel X Access', isGreen: false },
+                    { text: 'System ready for deployment', isGreen: true }
+                  ].map((feat, idx) => (
+                    <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px', fontSize: '12px', color: feat.isGreen ? '#10b981' : '#a3a3a3' }}>
+                      <span style={{ color: '#10b981' }}>✓</span>
+                      <span>{feat.text}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <Link to="/dashboard" style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                    background: '#040404', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '6px',
+                    padding: '10px', color: '#fff', fontSize: '11px', fontWeight: 'bold', textDecoration: 'none',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10b981'; e.currentTarget.style.boxShadow = '0 0 10px rgba(16,185,129,0.2)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = 'none'; }}>
+                    <span style={{ fontSize: '12px' }}>₿</span> Pay with Crypto
+                  </Link>
+                  <Link to="/dashboard" style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                    background: '#040404', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '6px',
+                    padding: '10px', color: '#fff', fontSize: '11px', fontWeight: 'bold', textDecoration: 'none',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10b981'; e.currentTarget.style.boxShadow = '0 0 10px rgba(16,185,129,0.2)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = 'none'; }}>
+                    <span style={{ fontSize: '10px' }}>💳</span> Pay with Card
+                  </Link>
+                </div>
+              </div>
             </div>
 
           </div>
