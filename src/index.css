@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@300;400;500;700&display=swap');
+
 /* ============================================
    OPSEC PLATFORM — Pure CSS Design System
    Inspired by ShieldCore.cc + CloudSINT.net
@@ -17,7 +19,7 @@ html {
 body {
   background-color: #030303;
   color: #ffffff;
-  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  font-family: 'JetBrains Mono', 'Roboto Mono', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;

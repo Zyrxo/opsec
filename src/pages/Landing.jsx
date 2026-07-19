@@ -30,7 +30,7 @@ export default function Landing() {
   );
   
   return (
-    <div style={{ backgroundColor: '#000', color: '#fff', minHeight: '100vh', fontFamily: 'Inter, system-ui, sans-serif', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ backgroundColor: '#000', color: '#fff', minHeight: '100vh', fontFamily: "'JetBrains Mono', 'Roboto Mono', monospace", position: 'relative', overflow: 'hidden' }}>
       
       {/* Background Elements */}
       <div className="bg-grid"></div>

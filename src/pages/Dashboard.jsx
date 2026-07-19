@@ -106,7 +106,7 @@ export default function Dashboard() {
     <>
       <style>{`@keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }`}</style>
       <Show when="signed-in">
-        <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#030303', color: '#fff', fontFamily: 'Inter, system-ui, sans-serif', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#030303', color: '#fff', fontFamily: "'JetBrains Mono', 'Roboto Mono', monospace", position: 'relative', overflow: 'hidden' }}>
           
           {/* Background Elements */}
           <div className="bg-grid"></div>
