@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Show, RedirectToSignIn, UserButton, useAuth } from '@clerk/react';
+import { Show, RedirectToSignIn, UserButton, useAuth, useUser } from '@clerk/react';
 import { 
   LayoutDashboard, Fingerprint, FileX2, Shield, UserX, 
   FileText, HardDrive, Trash2, Search, Menu, X, ArrowLeft, Lock 
@@ -30,6 +30,7 @@ const TOOLS = [
 export default function Dashboard() {
   const { tool } = useParams();
   const { userId } = useAuth();
+  const { user, isLoaded } = useUser();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isPremiumUnlocked, setIsPremiumUnlocked] = useState(false);
@@ -37,10 +38,12 @@ export default function Dashboard() {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
   useEffect(() => {
-    if (userId) {
-      setIsPremiumUnlocked(localStorage.getItem(`opsec_premium_unlocked_${userId}`) === 'true');
+    if (userId && isLoaded) {
+      const hasLocalOverride = localStorage.getItem(`opsec_premium_unlocked_${userId}`) === 'true';
+      const hasClerkPremium = user?.publicMetadata?.premium === true;
+      setIsPremiumUnlocked(hasLocalOverride || hasClerkPremium);
     }
-  }, [userId]);
+  }, [userId, user, isLoaded]);
 
   const unlockPremium = () => {
     setIsProcessingPayment(true);
@@ -50,6 +53,13 @@ export default function Dashboard() {
       setIsProcessingPayment(false);
       setShowPaywallModal(false);
     }, 2500);
+  };
+
+  const handleRealPayment = () => {
+    const sellixUrl = import.meta.env.VITE_SELLIX_PAYMENT_URL || "https://example.mysellix.io/product/PRODUCT_ID";
+    // Accoda il custom field clerk_user_id all'URL
+    const checkoutUrl = `${sellixUrl}?custom_fields[clerk_user_id]=${userId}`;
+    window.open(checkoutUrl, '_blank');
   };
 
   useEffect(() => {
@@ -284,8 +294,8 @@ export default function Dashboard() {
             <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <div style={{ background: '#0a0a0a', border: '1px solid #10b981', borderRadius: '12px', padding: '30px', width: '90%', maxWidth: '400px', fontFamily: '"JetBrains Mono", monospace' }}>
                 <h3 style={{ color: '#10b981', marginTop: 0 }}>&gt; ROOT_ACCESS_REQUIRED</h3>
-                <p style={{ color: '#a3a3a3', fontSize: '14px' }}>Bulletproof Suite Lifetime License: 0.005 BTC</p>
-                <div style={{ margin: '30px 0', padding: '15px', background: '#000', border: '1px solid rgba(16,185,129,0.3)', color: '#10b981', fontSize: '12px', minHeight: '80px' }}>
+                <p style={{ color: '#a3a3a3', fontSize: '14px' }}>Bulletproof Suite Lifetime License: 0.005 BTC / €15</p>
+                <div style={{ margin: '20px 0', padding: '15px', background: '#000', border: '1px solid rgba(16,185,129,0.3)', color: '#10b981', fontSize: '12px', minHeight: '80px' }}>
                   {isProcessingPayment ? (
                     <>
                       <div>&gt; Establishing secure channel...</div>
@@ -294,14 +304,21 @@ export default function Dashboard() {
                       <div style={{animation: 'blink 1s step-end infinite'}}>_</div>
                     </>
                   ) : (
-                    <div>&gt; Awaiting payment confirmation...</div>
+                    <div>&gt; Awaiting payment confirmation...<br />Dopo aver completato il pagamento, ricarica la pagina per attivare le modifiche.</div>
                   )}
                 </div>
-                <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
-                  <button disabled={isProcessingPayment} onClick={() => setShowPaywallModal(false)} style={{ background: 'transparent', color: '#a3a3a3', border: '1px solid #a3a3a3', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }}>Abort</button>
-                  <button disabled={isProcessingPayment} onClick={unlockPremium} style={{ background: '#10b981', color: '#000', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
-                    {isProcessingPayment ? 'Processing...' : 'Simulate Payment'}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <button onClick={handleRealPayment} style={{ background: '#10b981', color: '#000', border: 'none', padding: '10px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold', fontSize: '13px' }}>
+                    Pay with Card / Crypto
                   </button>
+                  <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+                    <button disabled={isProcessingPayment} onClick={unlockPremium} style={{ flex: 1, background: 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', padding: '8px', borderRadius: '6px', cursor: 'pointer', fontSize: '11px' }}>
+                      {isProcessingPayment ? 'Processing...' : 'Simulate Payment (Dev)'}
+                    </button>
+                    <button disabled={isProcessingPayment} onClick={() => setShowPaywallModal(false)} style={{ flex: 1, background: 'transparent', color: '#a3a3a3', border: '1px solid #737373', padding: '8px', borderRadius: '6px', cursor: 'pointer', fontSize: '11px' }}>
+                      Abort
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
