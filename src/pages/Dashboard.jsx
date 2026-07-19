@@ -55,11 +55,28 @@ export default function Dashboard() {
     }, 2500);
   };
 
-  const handleRealPayment = () => {
-    const sellixUrl = import.meta.env.VITE_SELLIX_PAYMENT_URL || "https://example.mysellix.io/product/PRODUCT_ID";
-    // Accoda il custom field clerk_user_id all'URL
-    const checkoutUrl = `${sellixUrl}?custom_fields[clerk_user_id]=${userId}`;
-    window.open(checkoutUrl, '_blank');
+  const handleRealPayment = async () => {
+    setIsProcessingPayment(true);
+    try {
+      const response = await fetch('/api/create-cryptomus-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId })
+      });
+      const data = await response.json();
+      if (data.url) {
+        window.open(data.url, '_blank');
+      } else {
+        alert('Errore nella creazione del pagamento: ' + (data.error || 'Errore sconosciuto'));
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Errore di rete durante la connessione a Cryptomus.');
+    } finally {
+      setIsProcessingPayment(false);
+    }
   };
 
   useEffect(() => {
@@ -308,8 +325,8 @@ export default function Dashboard() {
                   )}
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <button onClick={handleRealPayment} style={{ background: '#10b981', color: '#000', border: 'none', padding: '10px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold', fontSize: '13px' }}>
-                    Pay with Card / Crypto
+                  <button disabled={isProcessingPayment} onClick={handleRealPayment} style={{ background: '#10b981', color: '#000', border: 'none', padding: '10px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold', fontSize: '13px', opacity: isProcessingPayment ? 0.6 : 1 }}>
+                    {isProcessingPayment ? 'Initializing checkout...' : 'Pay with Card / Crypto'}
                   </button>
                   <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
                     <button disabled={isProcessingPayment} onClick={unlockPremium} style={{ flex: 1, background: 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', padding: '8px', borderRadius: '6px', cursor: 'pointer', fontSize: '11px' }}>
