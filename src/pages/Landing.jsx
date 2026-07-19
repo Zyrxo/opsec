@@ -45,7 +45,7 @@ export default function Landing() {
             <div className="header-logo-icon" style={{ color: '#10b981' }}>
               <Shield size={28} />
             </div>
-            <span className="header-logo-text" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#fff' }}>OpsecPlatform</span>
+            <span className="header-logo-text" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#fff' }}>ZeroTrace</span>
           </Link>
           
           <nav className="header-nav" style={{ display: 'none' }}>
@@ -143,7 +143,7 @@ export default function Landing() {
           <div className="hero-content anim-slide-up">
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', padding: '0.25rem 0.75rem', borderRadius: '999px', marginBottom: '1.5rem' }}>
               <div className="status-dot" style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 10px #10b981' }}></div>
-              <span style={{ color: '#10b981', fontSize: '0.75rem', fontWeight: 'bold', letterSpacing: '0.05em' }}>OPSEC PLATFORM</span>
+              <span style={{ color: '#10b981', fontSize: '0.75rem', fontWeight: 'bold', letterSpacing: '0.05em' }}>ZERO TRACE</span>
             </div>
             
             <h1 style={{ fontSize: '3.5rem', lineHeight: '1.1', marginBottom: '1.5rem', fontWeight: '800' }}>
@@ -620,7 +620,7 @@ export default function Landing() {
         <div className="container" style={{ textAlign: 'center' }}>
           <div className="cta-content" style={{ background: 'linear-gradient(45deg, rgba(16,185,129,0.1), rgba(0,0,0,0.5))', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '16px', padding: '4rem 2rem' }}>
             <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '1.5rem' }}>Ready to secure your workflow?</h2>
-            <p style={{ color: 'rgba(255,255,255,0.6)', maxWidth: '500px', margin: '0 auto 2.5rem auto', fontSize: '1.1rem' }}>Join operators worldwide who trust OpsecPlatform for their daily security needs.</p>
+            <p style={{ color: 'rgba(255,255,255,0.6)', maxWidth: '500px', margin: '0 auto 2.5rem auto', fontSize: '1.1rem' }}>Join operators worldwide who trust ZeroTrace for their daily security needs.</p>
             <div className="cta-buttons" style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
               <Link to="/dashboard" className="btn-primary" style={{ background: '#10b981', color: '#000', border: '1px solid #10b981', boxShadow: '0 0 20px rgba(16,185,129,0.3)', padding: '1rem 2rem', borderRadius: '4px', textDecoration: 'none', fontWeight: 'bold', fontSize: '1.1rem' }}>Launch Dashboard</Link>
             </div>
@@ -635,7 +635,7 @@ export default function Landing() {
             
             <div className="footer-brand" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <Shield size={24} color="#10b981" />
-              <span style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>OpsecPlatform</span>
+              <span style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>ZeroTrace</span>
               <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem', marginLeft: '1rem' }}>© 2026</span>
             </div>
             

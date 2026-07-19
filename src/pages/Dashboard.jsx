@@ -158,8 +158,8 @@ export default function Dashboard() {
                 borderRadius: '8px',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 color: '#fff', fontWeight: 'bold', fontSize: '14px', letterSpacing: '1px'
-              }}>OP</div>
-              <span style={{ fontSize: '16px', fontWeight: '600', color: '#fff', letterSpacing: '-0.5px' }}>OpsecPlatform</span>
+              }}>ZT</div>
+              <span style={{ fontSize: '16px', fontWeight: '600', color: '#fff', letterSpacing: '-0.5px' }}>ZeroTrace</span>
               {isMobile && (
                 <button onClick={() => setIsMobileMenuOpen(false)} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: '#a3a3a3', cursor: 'pointer' }}>
                   <X size={20} />
