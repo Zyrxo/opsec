@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/react';
+import { Show, SignInButton, SignUpButton, useAuth, useUser, SignOutButton } from '@clerk/react';
 import { 
   Shield, 
   Lock, 
@@ -21,6 +21,13 @@ import {
 
 export default function Landing() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, isLoaded } = useUser();
+  const { userId } = useAuth();
+  
+  const isPremiumUnlocked = userId && isLoaded && (
+    localStorage.getItem(`opsec_premium_unlocked_${userId}`) === 'true' ||
+    user?.publicMetadata?.premium === true
+  );
   
   return (
     <div style={{ backgroundColor: '#000', color: '#fff', minHeight: '100vh', fontFamily: 'Inter, system-ui, sans-serif', position: 'relative', overflow: 'hidden' }}>
@@ -51,7 +58,43 @@ export default function Landing() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <Show when="signed-in">
               <Link to="/dashboard" className="btn-ghost" style={{ padding: '0.5rem 1rem', borderRadius: '4px', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '0.9rem' }}>Dashboard</Link>
-              <UserButton afterSignOutUrl="/" />
+              
+              {/* Custom User Profile Badge */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.05)', padding: '6px 12px', borderRadius: '8px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: '11px', fontWeight: '600', color: '#fff' }}>
+                    {user?.username || user?.firstName || user?.primaryEmailAddress?.emailAddress?.split('@')[0] || 'User'}
+                  </span>
+                  <span style={{ 
+                    fontSize: '9px', 
+                    fontWeight: 'bold', 
+                    color: isPremiumUnlocked ? '#10b981' : '#737373',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    marginTop: '1px'
+                  }}>
+                    {isPremiumUnlocked ? 'Premium' : 'Free'}
+                  </span>
+                </div>
+              </div>
+
+              <SignOutButton>
+                <button style={{ 
+                  background: 'transparent', 
+                  border: '1px solid rgba(255,255,255,0.08)', 
+                  color: '#a3a3a3', 
+                  fontSize: '11px', 
+                  padding: '8px 14px', 
+                  borderRadius: '6px', 
+                  cursor: 'pointer',
+                  fontWeight: '500',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = '#a3a3a3'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}>
+                  Logout
+                </button>
+              </SignOutButton>
             </Show>
             <Show when="signed-out">
               <SignInButton mode="modal">
