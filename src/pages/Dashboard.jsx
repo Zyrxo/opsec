@@ -152,13 +152,12 @@ export default function Dashboard() {
             
             {/* Logo */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '0 10px', marginBottom: '24px' }}>
-              <div style={{
-                width: '32px', height: '32px', 
-                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                borderRadius: '8px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: '#fff', fontWeight: 'bold', fontSize: '14px', letterSpacing: '1px'
-              }}>ZT</div>
+              <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 5 L90 25 V75 L50 95 L10 75 V25 Z" fill="#09090b" stroke="#3f3f46" strokeWidth="6" strokeLinejoin="round" />
+                <path d="M50 12 L82 28 V70 L50 87 L18 70 V28 Z" fill="none" stroke="#27272a" strokeWidth="4" />
+                <path d="M30 32 H70 L30 68 H70" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M50 32 V68" stroke="#71717a" strokeWidth="8" strokeLinecap="round" />
+              </svg>
               <span style={{ fontSize: '16px', fontWeight: '600', color: '#fff', letterSpacing: '-0.5px' }}>ZeroTrace</span>
               {isMobile && (
                 <button onClick={() => setIsMobileMenuOpen(false)} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: '#a3a3a3', cursor: 'pointer' }}>
@@ -502,9 +501,14 @@ function OverviewCards({ isPremiumUnlocked, setShowPaywallModal }) {
       {/* Welcome Row */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          {/* Pixel Cloud Art */}
-          <div style={{ fontSize: '28px', color: '#a3a3a3', userSelect: 'none', display: 'flex', alignItems: 'center' }}>
-            ☁️
+          {/* SVG Brand Logo */}
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 5 L90 25 V75 L50 95 L10 75 V25 Z" fill="#09090b" stroke="#3f3f46" strokeWidth="6" strokeLinejoin="round" />
+              <path d="M50 12 L82 28 V70 L50 87 L18 70 V28 Z" fill="none" stroke="#27272a" strokeWidth="4" />
+              <path d="M30 32 H70 L30 68 H70" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M50 32 V68" stroke="#71717a" strokeWidth="8" strokeLinecap="round" />
+            </svg>
           </div>
           <div>
             <h2 style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 4px 0', color: '#fff' }}>

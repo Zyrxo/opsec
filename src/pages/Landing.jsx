@@ -42,9 +42,12 @@ export default function Landing() {
       <header className="header">
         <div className="container header-inner">
           <Link to="/" className="header-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <div className="header-logo-icon" style={{ color: '#10b981' }}>
-              <Shield size={28} />
-            </div>
+            <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 5 L90 25 V75 L50 95 L10 75 V25 Z" fill="#09090b" stroke="#3f3f46" strokeWidth="6" strokeLinejoin="round" />
+              <path d="M50 12 L82 28 V70 L50 87 L18 70 V28 Z" fill="none" stroke="#27272a" strokeWidth="4" />
+              <path d="M30 32 H70 L30 68 H70" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M50 32 V68" stroke="#71717a" strokeWidth="8" strokeLinecap="round" />
+            </svg>
             <span className="header-logo-text" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#fff' }}>ZeroTrace</span>
           </Link>
           
@@ -377,9 +380,9 @@ export default function Landing() {
             <p style={{ color: '#737373', fontSize: '0.9rem', letterSpacing: '2px', fontFamily: "'JetBrains Mono', monospace" }}>[INITIALIZING PAYMENT SYSTEMS...]</p>
           </div>
           
-          <div className="pricing-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '1100px', margin: '0 auto' }}>
+          <div className="pricing-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '800px', margin: '0 auto' }}>
             
-            {/* Lite Tier */}
+            {/* Free Tier */}
             <div style={{
               background: '#040404',
               border: '1px solid rgba(255,255,255,0.06)',
@@ -396,7 +399,7 @@ export default function Landing() {
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#eab308' }}></div>
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }}></div>
                 </div>
-                <span style={{ fontSize: '10px', color: '#737373' }}>root@cloudsint:~/lite</span>
+                <span style={{ fontSize: '10px', color: '#737373' }}>root@zerotrace:~/free</span>
               </div>
 
               <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -405,9 +408,9 @@ export default function Landing() {
                   <span>cat package_info.txt</span>
                 </div>
 
-                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff', margin: '0 0 4px 0' }}>Lite</h3>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff', margin: '0 0 4px 0' }}>Free Suite</h3>
                 <div style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#fff', marginBottom: '24px' }}>
-                  $19.99<span style={{ fontSize: '11px', color: '#737373', fontWeight: 'normal' }}>/month</span>
+                  Free<span style={{ fontSize: '11px', color: '#737373', fontWeight: 'normal' }}>/forever</span>
                 </div>
 
                 <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: '#737373', marginBottom: '16px' }}>
@@ -417,10 +420,12 @@ export default function Landing() {
 
                 <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', flex: 1 }}>
                   {[
-                    { text: '75 credits per month', isGreen: false },
-                    { text: 'Unused credits roll over', isGreen: false },
-                    { text: 'Email lookup', isGreen: false },
-                    { text: 'Standard support', isGreen: false },
+                    { text: '5 Standard Tools Included', isGreen: false },
+                    { text: 'DNS & IP Intelligence', isGreen: false },
+                    { text: 'Social Sanitizer checklist', isGreen: false },
+                    { text: 'Burner Identity manager', isGreen: false },
+                    { text: 'Data Shredder (Standard)', isGreen: false },
+                    { text: 'Log Sanitizer (Standard)', isGreen: false },
                     { text: 'System ready for deployment', isGreen: true }
                   ].map((feat, idx) => (
                     <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px', fontSize: '12px', color: feat.isGreen ? '#10b981' : '#a3a3a3' }}>
@@ -434,100 +439,12 @@ export default function Landing() {
                   <Link to="/dashboard" style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
                     background: '#040404', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '6px',
-                    padding: '10px', color: '#fff', fontSize: '11px', fontWeight: 'bold', textDecoration: 'none',
-                    transition: 'all 0.2s'
+                    padding: '12px', color: '#fff', fontSize: '11px', fontWeight: 'bold', textDecoration: 'none',
+                    transition: 'all 0.2s', textAlign: 'center'
                   }}
                   onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10b981'; e.currentTarget.style.boxShadow = '0 0 10px rgba(16,185,129,0.2)'; }}
                   onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = 'none'; }}>
-                    <span style={{ fontSize: '12px' }}>₿</span> Pay with Crypto
-                  </Link>
-                  <Link to="/dashboard" style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                    background: '#040404', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '6px',
-                    padding: '10px', color: '#fff', fontSize: '11px', fontWeight: 'bold', textDecoration: 'none',
-                    transition: 'all 0.2s'
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10b981'; e.currentTarget.style.boxShadow = '0 0 10px rgba(16,185,129,0.2)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = 'none'; }}>
-                    <span style={{ fontSize: '10px' }}>💳</span> Pay with Card
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Normal Tier */}
-            <div style={{
-              background: '#040404',
-              border: '1px solid rgba(255,255,255,0.06)',
-              borderRadius: '8px',
-              overflow: 'hidden',
-              display: 'flex',
-              flexDirection: 'column',
-              position: 'relative',
-              fontFamily: "'JetBrains Mono', monospace"
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', background: '#0a0a0a', borderBottom: '1px solid rgba(255,255,255,0.04)', padding: '12px 16px' }}>
-                <div style={{ display: 'flex', gap: '6px', marginRight: '16px' }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444' }}></div>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#eab308' }}></div>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }}></div>
-                </div>
-                <span style={{ fontSize: '10px', color: '#737373' }}>root@cloudsint:~/normal</span>
-                <span style={{ marginLeft: 'auto', background: '#fff', color: '#000', fontSize: '8px', fontWeight: 'bold', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Popular</span>
-              </div>
-
-              <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: '#737373', marginBottom: '16px' }}>
-                  <span>$</span>
-                  <span>cat package_info.txt</span>
-                </div>
-
-                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff', margin: '0 0 4px 0' }}>Normal</h3>
-                <div style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#fff', marginBottom: '24px' }}>
-                  $49.99<span style={{ fontSize: '11px', color: '#737373', fontWeight: 'normal' }}>/month</span>
-                </div>
-
-                <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: '#737373', marginBottom: '16px' }}>
-                  <span>$</span>
-                  <span>./list_features.sh</span>
-                </div>
-
-                <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', flex: 1 }}>
-                  {[
-                    { text: '200 credits per month', isGreen: false },
-                    { text: 'Unused credits roll over', isGreen: false },
-                    { text: 'Advanced threat intelligence', isGreen: false },
-                    { text: 'Full OSINT toolkit', isGreen: false },
-                    { text: 'Priority support', isGreen: false },
-                    { text: 'System ready for deployment', isGreen: true }
-                  ].map((feat, idx) => (
-                    <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px', fontSize: '12px', color: feat.isGreen ? '#10b981' : '#a3a3a3' }}>
-                      <span style={{ color: '#10b981' }}>✓</span>
-                      <span>{feat.text}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <Link to="/dashboard" style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                    background: '#040404', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '6px',
-                    padding: '10px', color: '#fff', fontSize: '11px', fontWeight: 'bold', textDecoration: 'none',
-                    transition: 'all 0.2s'
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10b981'; e.currentTarget.style.boxShadow = '0 0 10px rgba(16,185,129,0.2)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = 'none'; }}>
-                    <span style={{ fontSize: '12px' }}>₿</span> Pay with Crypto
-                  </Link>
-                  <Link to="/dashboard" style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                    background: '#040404', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '6px',
-                    padding: '10px', color: '#fff', fontSize: '11px', fontWeight: 'bold', textDecoration: 'none',
-                    transition: 'all 0.2s'
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10b981'; e.currentTarget.style.boxShadow = '0 0 10px rgba(16,185,129,0.2)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = 'none'; }}>
-                    <span style={{ fontSize: '10px' }}>💳</span> Pay with Card
+                    Access Dashboard
                   </Link>
                 </div>
               </div>
@@ -550,7 +467,8 @@ export default function Landing() {
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#eab308' }}></div>
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }}></div>
                 </div>
-                <span style={{ fontSize: '10px', color: '#737373' }}>root@cloudsint:~/premium</span>
+                <span style={{ fontSize: '10px', color: '#737373' }}>root@zerotrace:~/premium</span>
+                <span style={{ marginLeft: 'auto', background: '#fff', color: '#000', fontSize: '8px', fontWeight: 'bold', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Popular</span>
               </div>
 
               <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -559,9 +477,9 @@ export default function Landing() {
                   <span>cat package_info.txt</span>
                 </div>
 
-                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff', margin: '0 0 4px 0' }}>Premium</h3>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff', margin: '0 0 4px 0' }}>Premium Operator</h3>
                 <div style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#fff', marginBottom: '24px' }}>
-                  $99.99<span style={{ fontSize: '11px', color: '#737373', fontWeight: 'normal' }}>/month</span>
+                  $15.00<span style={{ fontSize: '11px', color: '#737373', fontWeight: 'normal' }}>/lifetime</span>
                 </div>
 
                 <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: '#737373', marginBottom: '16px' }}>
@@ -571,12 +489,14 @@ export default function Landing() {
 
                 <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', flex: 1 }}>
                   {[
-                    { text: '500 credits per month', isGreen: false },
-                    { text: 'Unused credits roll over', isGreen: false },
-                    { text: 'Real-time threat intelligence', isGreen: false },
-                    { text: 'Advanced analytics', isGreen: false },
-                    { text: '24/7 priority support', isGreen: false },
-                    { text: 'Intel X Access', isGreen: false },
+                    { text: 'All 11+ security modules', isGreen: false },
+                    { text: 'Fingerprint Analyser (Resilience)', isGreen: false },
+                    { text: 'Metadata EXIF Stripper', isGreen: false },
+                    { text: 'Threat Modeling wizard', isGreen: false },
+                    { text: 'Data Broker Removal (50+ databases)', isGreen: false },
+                    { text: 'OS Hardening guides (Win/Mac/Linux)', isGreen: false },
+                    { text: 'PGP Crypto Suite (RSA 2048-bit)', isGreen: false },
+                    { text: 'LSB Steganography (Lossless PNG)', isGreen: false },
                     { text: 'System ready for deployment', isGreen: true }
                   ].map((feat, idx) => (
                     <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px', fontSize: '12px', color: feat.isGreen ? '#10b981' : '#a3a3a3' }}>
@@ -615,14 +535,65 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA TERMINAL */}
       <section className="cta-section" style={{ padding: '6rem 0' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <div className="cta-content" style={{ background: 'linear-gradient(45deg, rgba(16,185,129,0.1), rgba(0,0,0,0.5))', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '16px', padding: '4rem 2rem' }}>
-            <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '1.5rem' }}>Ready to secure your workflow?</h2>
-            <p style={{ color: 'rgba(255,255,255,0.6)', maxWidth: '500px', margin: '0 auto 2.5rem auto', fontSize: '1.1rem' }}>Join operators worldwide who trust ZeroTrace for their daily security needs.</p>
-            <div className="cta-buttons" style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-              <Link to="/dashboard" className="btn-primary" style={{ background: '#10b981', color: '#000', border: '1px solid #10b981', boxShadow: '0 0 20px rgba(16,185,129,0.3)', padding: '1rem 2rem', borderRadius: '4px', textDecoration: 'none', fontWeight: 'bold', fontSize: '1.1rem' }}>Launch Dashboard</Link>
+        <div className="container" style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <div style={{
+            background: '#040404',
+            border: '1px solid rgba(255,255,255,0.06)',
+            borderRadius: '8px',
+            overflow: 'hidden',
+            fontFamily: "'JetBrains Mono', monospace"
+          }}>
+            {/* Terminal Header */}
+            <div style={{ display: 'flex', alignItems: 'center', background: '#0a0a0a', borderBottom: '1px solid rgba(255,255,255,0.04)', padding: '12px 16px' }}>
+              <div style={{ display: 'flex', gap: '6px', marginRight: '16px' }}>
+                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444' }}></div>
+                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#eab308' }}></div>
+                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }}></div>
+              </div>
+              <span style={{ fontSize: '10px', color: '#737373' }}>root@zerotrace:~/session_init</span>
+            </div>
+
+            {/* Terminal Body */}
+            <div style={{ padding: '24px', fontSize: '12px', lineHeight: '1.6', color: '#a3a3a3' }}>
+              <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
+                <span style={{ color: '#10b981' }}>$</span>
+                <span style={{ color: '#fff' }}>zerotrace --init --secure</span>
+              </div>
+              <div style={{ color: '#737373', marginBottom: '16px' }}>
+                [SYSTEM] Initializing secure zero-knowledge environment...<br />
+                [SYSTEM] Loading WebCrypto Subtle API cores... [DONE]<br />
+                [SYSTEM] Isolating canvas/WebGL fingerprinters... [DONE]<br />
+                [SYSTEM] Mounting client-side memory blocks... [DONE]<br />
+                [SYSTEM] Status: Zero traces left behind.
+              </div>
+              
+              <div style={{ borderTop: '1px solid rgba(255,255,255,0.04)', paddingTop: '20px', marginTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+                <div>
+                  <div style={{ color: '#fff', fontWeight: 'bold', fontSize: '14px', marginBottom: '4px' }}>Ready to secure your workspace?</div>
+                  <div style={{ color: '#737373', fontSize: '11px' }}>Execute the dashboard and begin your secure session.</div>
+                </div>
+                <Link to="/dashboard" style={{
+                  background: '#10b981',
+                  color: '#000',
+                  border: '1px solid #10b981',
+                  boxShadow: '0 0 20px rgba(16,185,129,0.3)',
+                  padding: '10px 20px',
+                  borderRadius: '4px',
+                  textDecoration: 'none',
+                  fontWeight: 'bold',
+                  fontSize: '12px',
+                  transition: 'all 0.2s',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 0 30px rgba(16,185,129,0.5)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 0 20px rgba(16,185,129,0.3)'; }}>
+                  <span>$</span> run_dashboard.sh
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -634,7 +605,12 @@ export default function Landing() {
           <div className="footer-inner" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem' }}>
             
             <div className="footer-brand" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <Shield size={24} color="#10b981" />
+              <svg width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 5 L90 25 V75 L50 95 L10 75 V25 Z" fill="#09090b" stroke="#3f3f46" strokeWidth="6" strokeLinejoin="round" />
+                <path d="M50 12 L82 28 V70 L50 87 L18 70 V28 Z" fill="none" stroke="#27272a" strokeWidth="4" />
+                <path d="M30 32 H70 L30 68 H70" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M50 32 V68" stroke="#71717a" strokeWidth="8" strokeLinecap="round" />
+              </svg>
               <span style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>ZeroTrace</span>
               <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem', marginLeft: '1rem' }}>© 2026</span>
             </div>
