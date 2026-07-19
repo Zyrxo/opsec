@@ -569,7 +569,7 @@ function OverviewCards({ isPremiumUnlocked, setShowPaywallModal }) {
           </div>
           <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#fff', marginBottom: '4px' }}>Online</div>
           <div style={{ fontSize: '10px', color: '#10b981', marginBottom: '16px' }}>All systems operational!</div>
-          <span style={{ color: '#10b981', fontSize: '11px', cursor: 'default' }}>CloudSINT Status →</span>
+          <span style={{ color: '#10b981', fontSize: '11px', cursor: 'default' }}>TraceWipe Status →</span>
         </div>
       </div>
 
