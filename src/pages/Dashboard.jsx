@@ -4,7 +4,7 @@ import { Show, RedirectToSignIn, useAuth, useUser, SignOutButton } from '@clerk/
 import { 
   LayoutDashboard, Fingerprint, FileX2, Shield, UserX, 
   FileText, HardDrive, Trash2, Search, Menu, X, ArrowLeft, Lock,
-  Key, Image 
+  Key, Image, ShieldAlert, Clock, Activity 
 } from 'lucide-react';
 
 import FingerprintAnalyser from '../tools/FingerprintAnalyser';
@@ -441,77 +441,181 @@ export default function Dashboard() {
 }
 
 function OverviewCards({ isPremiumUnlocked, setShowPaywallModal }) {
+  const { user } = useUser();
   const toolsList = TOOLS.filter(t => t.key !== 'overview');
   
   return (
-    <div>
-      <div style={{ marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '8px', marginTop: 0 }}>Welcome to your OPSEC Dashboard</h2>
-        <p style={{ color: '#a3a3a3', fontSize: '14px', margin: 0 }}>Select a tool to get started</p>
+    <div style={{ fontFamily: "'JetBrains Mono', monospace", color: '#fff' }}>
+      {/* Email Verification Banner */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        background: 'rgba(239, 68, 68, 0.05)',
+        border: '1px solid rgba(239, 68, 68, 0.15)',
+        padding: '12px 20px',
+        borderRadius: '8px',
+        marginBottom: '24px'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <ShieldAlert size={20} style={{ color: '#ef4444' }} />
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#fff' }}>Verify your email</span>
+            <span style={{ fontSize: '10px', color: '#737373', marginTop: '2px' }}>Verify your email to unlock 5 free searches per month</span>
+          </div>
+        </div>
+        <button style={{
+          background: '#fff',
+          color: '#000',
+          border: 'none',
+          padding: '6px 14px',
+          borderRadius: '4px',
+          fontSize: '10px',
+          fontWeight: 'bold',
+          cursor: 'pointer'
+        }}>
+          Verify now
+        </button>
       </div>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: '20px'
-      }}>
-        {toolsList.map(tool => {
-          const Icon = tool.icon;
-          const isPremiumTool = tool.key !== 'dns-intel' && tool.key !== 'social' && tool.key !== 'burner';
-          return (
-            <Link 
-              key={tool.key} 
-              to={`/dashboard/${tool.key}`} 
-              onClick={(e) => {
-                if (isPremiumTool && !isPremiumUnlocked) {
-                  e.preventDefault();
-                  setShowPaywallModal(true);
-                }
-              }}
-              style={{ textDecoration: 'none' }}
-            >
-              <div
+      {/* Welcome Row */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          {/* Pixel Cloud Art */}
+          <div style={{ fontSize: '28px', color: '#a3a3a3', userSelect: 'none', display: 'flex', alignItems: 'center' }}>
+            ☁️
+          </div>
+          <div>
+            <h2 style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 4px 0', color: '#fff' }}>
+              Welcome back, <span style={{ color: '#10b981' }}>{user?.firstName || user?.username || 'Operator'}</span>
+            </h2>
+            <p style={{ fontSize: '11px', color: '#737373', margin: 0 }}>All data leaves a trace - find it.</p>
+          </div>
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#fff' }}>0 Credits</div>
+          <div style={{ fontSize: '9px', color: '#737373', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>Available</div>
+        </div>
+      </div>
+
+      {/* Stat Cards Grid */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', marginBottom: '32px' }}>
+        {/* Card 1: Account Status */}
+        <div style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#737373', fontSize: '10px', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <UserX size={12} />
+            <span>Account Status</span>
+          </div>
+          <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#fff', marginBottom: '4px' }}>
+            {isPremiumUnlocked ? 'Operator' : 'Guest'}
+          </div>
+          <div style={{ fontSize: '10px', color: '#737373', marginBottom: '16px' }}>0 credits remaining</div>
+          <button onClick={() => setShowPaywallModal(true)} style={{ background: 'none', border: 'none', color: '#10b981', fontSize: '11px', cursor: 'pointer', padding: 0, textDecoration: 'underline', textAlign: 'left', width: 'fit-content' }}>
+            Buy credits →
+          </button>
+        </div>
+
+        {/* Card 2: Recent Activity */}
+        <div style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#737373', fontSize: '10px', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <Activity size={12} />
+            <span>Recent Activity</span>
+          </div>
+          <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#fff', marginBottom: '4px' }}>0</div>
+          <div style={{ fontSize: '10px', color: '#737373', marginBottom: '16px' }}>Actions recorded today</div>
+          <span style={{ color: '#737373', fontSize: '11px', cursor: 'default' }}>View All →</span>
+        </div>
+
+        {/* Card 3: System Health */}
+        <div style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px', padding: '16px', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#737373', fontSize: '10px', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <Shield size={12} />
+            <span>System Health</span>
+          </div>
+          <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#fff', marginBottom: '4px' }}>Online</div>
+          <div style={{ fontSize: '10px', color: '#10b981', marginBottom: '16px' }}>All systems operational!</div>
+          <span style={{ color: '#10b981', fontSize: '11px', cursor: 'default' }}>CloudSINT Status →</span>
+        </div>
+      </div>
+
+      {/* Main Panels Grid */}
+      <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: '20px', marginBottom: '32px' }}>
+        {/* Left Panel: Recent Activity */}
+        <div style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px', padding: '20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '12px', marginBottom: '24px' }}>
+            <Clock size={14} style={{ color: '#737373' }} />
+            <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#fff' }}>Recent Activity</span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '140px', color: '#737373' }}>
+            <div style={{ background: 'rgba(255,255,255,0.02)', padding: '12px', borderRadius: '50%', marginBottom: '12px' }}>
+              <LayoutDashboard size={24} style={{ color: '#737373' }} />
+            </div>
+            <span style={{ fontSize: '12px', color: '#fff', marginBottom: '4px' }}>No recent activity found.</span>
+            <span style={{ fontSize: '10px', color: '#525252' }}>Start using the system to see your activity here.</span>
+          </div>
+        </div>
+
+        {/* Right Panel: Account Summary */}
+        <div style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px', padding: '20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '12px', marginBottom: '16px' }}>
+            <UserX size={14} style={{ color: '#737373' }} />
+            <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#fff' }}>Account Summary</span>
+          </div>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '11px' }}>
+            <tbody>
+              {[
+                { label: 'Username', val: user?.username || user?.firstName || 'Operator' },
+                { label: 'Email', val: user?.primaryEmailAddress?.emailAddress || 'N/A' },
+                { label: 'Credits', val: '0' },
+                { label: 'Activities today', val: '0' },
+                { label: 'Status', val: isPremiumUnlocked ? '• Operator' : '• Guest', isStatus: true }
+              ].map((row, idx) => (
+                <tr key={idx} style={{ borderBottom: idx === 4 ? 'none' : '1px solid rgba(255,255,255,0.03)' }}>
+                  <td style={{ padding: '8px 0', color: '#737373' }}>{row.label}</td>
+                  <td style={{ padding: '8px 0', textAlign: 'right', color: row.isStatus ? (isPremiumUnlocked ? '#10b981' : '#737373') : '#fff', fontWeight: row.isStatus ? 'bold' : 'normal' }}>
+                    {row.val}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Quick Access Tools Grid */}
+      <div style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px', padding: '20px' }}>
+        <h3 style={{ fontSize: '12px', fontWeight: 'bold', color: '#fff', marginBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          &gt; QUICK_ACCESS_TOOLSET
+        </h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '12px' }}>
+          {toolsList.map(tool => {
+            const Icon = tool.icon;
+            const isPremiumTool = tool.key !== 'dns-intel' && tool.key !== 'social' && tool.key !== 'burner' && tool.key !== 'shredder' && tool.key !== 'sanitizer';
+            return (
+              <Link 
+                key={tool.key} 
+                to={`/dashboard/${tool.key}`} 
+                onClick={(e) => {
+                  if (isPremiumTool && !isPremiumUnlocked) {
+                    e.preventDefault();
+                    setShowPaywallModal(true);
+                  }
+                }}
                 style={{
-                  background: 'linear-gradient(to bottom, #0a0a0a, #040404)',
-                  border: '1px solid rgba(255,255,255,0.04)',
-                  borderRadius: '12px',
-                  padding: '24px',
-                  transition: 'all 0.3s ease',
-                  height: '100%',
-                  boxSizing: 'border-box',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  position: 'relative'
+                  display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px',
+                  borderRadius: '6px', border: '1px solid rgba(255,255,255,0.03)', background: 'rgba(255,255,255,0.01)',
+                  color: '#fff', textDecoration: 'none', transition: 'all 0.2s', fontSize: '11px'
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(16,185,129,0.2)';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.04)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(16,185,129,0.2)'; e.currentTarget.style.background = 'rgba(16,185,129,0.02)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.03)'; e.currentTarget.style.background = 'rgba(255,255,255,0.01)'; }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                  <div style={{ color: '#10b981' }}>
-                    <Icon size={28} />
-                  </div>
-                  {isPremiumTool && !isPremiumUnlocked && (
-                    <div style={{ color: '#737373', display: 'flex', alignItems: 'center' }}>
-                      <Lock size={16} />
-                    </div>
-                  )}
-                </div>
-                <h3 style={{ fontSize: '15px', fontWeight: '600', color: '#fff', margin: '0 0 8px 0' }}>
-                  {tool.label}
-                </h3>
-                <p style={{ fontSize: '12px', color: '#a3a3a3', margin: 0, lineHeight: '1.5' }}>
-                  {tool.desc}
-                </p>
-              </div>
-            </Link>
-          )
-        })}
+                <Icon size={12} style={{ color: '#10b981' }} />
+                <span>{tool.label}</span>
+                {isPremiumTool && !isPremiumUnlocked && <Lock size={10} style={{ marginLeft: 'auto', color: '#737373' }} />}
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
