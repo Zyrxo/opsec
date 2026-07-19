@@ -155,10 +155,11 @@ export default function Dashboard() {
               <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 5 L90 25 V75 L50 95 L10 75 V25 Z" fill="#09090b" stroke="#3f3f46" strokeWidth="6" strokeLinejoin="round" />
                 <path d="M50 12 L82 28 V70 L50 87 L18 70 V28 Z" fill="none" stroke="#27272a" strokeWidth="4" />
-                <path d="M30 32 H70 L30 68 H70" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M50 32 V68" stroke="#71717a" strokeWidth="8" strokeLinecap="round" />
+                <path d="M30 32 H70" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" />
+                <path d="M50 32 V58" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" />
+                <path d="M30 50 L40 72 L50 58 L60 72 L70 50" stroke="#71717a" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <span style={{ fontSize: '16px', fontWeight: '600', color: '#fff', letterSpacing: '-0.5px' }}>ZeroTrace</span>
+              <span style={{ fontSize: '16px', fontWeight: '600', color: '#fff', letterSpacing: '-0.5px' }}>TraceWipe</span>
               {isMobile && (
                 <button onClick={() => setIsMobileMenuOpen(false)} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: '#a3a3a3', cursor: 'pointer' }}>
                   <X size={20} />
@@ -506,8 +507,9 @@ function OverviewCards({ isPremiumUnlocked, setShowPaywallModal }) {
             <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M50 5 L90 25 V75 L50 95 L10 75 V25 Z" fill="#09090b" stroke="#3f3f46" strokeWidth="6" strokeLinejoin="round" />
               <path d="M50 12 L82 28 V70 L50 87 L18 70 V28 Z" fill="none" stroke="#27272a" strokeWidth="4" />
-              <path d="M30 32 H70 L30 68 H70" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M50 32 V68" stroke="#71717a" strokeWidth="8" strokeLinecap="round" />
+              <path d="M30 32 H70" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" />
+              <path d="M50 32 V58" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" />
+              <path d="M30 50 L40 72 L50 58 L60 72 L70 50" stroke="#71717a" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
           <div>

@@ -45,10 +45,11 @@ export default function Landing() {
             <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M50 5 L90 25 V75 L50 95 L10 75 V25 Z" fill="#09090b" stroke="#3f3f46" strokeWidth="6" strokeLinejoin="round" />
               <path d="M50 12 L82 28 V70 L50 87 L18 70 V28 Z" fill="none" stroke="#27272a" strokeWidth="4" />
-              <path d="M30 32 H70 L30 68 H70" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M50 32 V68" stroke="#71717a" strokeWidth="8" strokeLinecap="round" />
+              <path d="M30 32 H70" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" />
+              <path d="M50 32 V58" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" />
+              <path d="M30 50 L40 72 L50 58 L60 72 L70 50" stroke="#71717a" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span className="header-logo-text" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#fff' }}>ZeroTrace</span>
+            <span className="header-logo-text" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#fff' }}>TraceWipe</span>
           </Link>
           
           <nav className="header-nav" style={{ display: 'none' }}>
@@ -146,7 +147,7 @@ export default function Landing() {
           <div className="hero-content anim-slide-up">
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', padding: '0.25rem 0.75rem', borderRadius: '999px', marginBottom: '1.5rem' }}>
               <div className="status-dot" style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 10px #10b981' }}></div>
-              <span style={{ color: '#10b981', fontSize: '0.75rem', fontWeight: 'bold', letterSpacing: '0.05em' }}>ZERO TRACE</span>
+              <span style={{ color: '#10b981', fontSize: '0.75rem', fontWeight: 'bold', letterSpacing: '0.05em' }}>TRACE WIPE</span>
             </div>
             
             <h1 style={{ fontSize: '3.5rem', lineHeight: '1.1', marginBottom: '1.5rem', fontWeight: '800' }}>
@@ -399,7 +400,7 @@ export default function Landing() {
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#eab308' }}></div>
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }}></div>
                 </div>
-                <span style={{ fontSize: '10px', color: '#737373' }}>root@zerotrace:~/free</span>
+                <span style={{ fontSize: '10px', color: '#737373' }}>root@tracewipe:~/free</span>
               </div>
 
               <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -467,7 +468,7 @@ export default function Landing() {
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#eab308' }}></div>
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }}></div>
                 </div>
-                <span style={{ fontSize: '10px', color: '#737373' }}>root@zerotrace:~/premium</span>
+                <span style={{ fontSize: '10px', color: '#737373' }}>root@tracewipe:~/premium</span>
                 <span style={{ marginLeft: 'auto', background: '#fff', color: '#000', fontSize: '8px', fontWeight: 'bold', padding: '2px 6px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Popular</span>
               </div>
 
@@ -552,21 +553,21 @@ export default function Landing() {
                 <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#eab308' }}></div>
                 <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }}></div>
               </div>
-              <span style={{ fontSize: '10px', color: '#737373' }}>root@zerotrace:~/session_init</span>
+              <span style={{ fontSize: '10px', color: '#737373' }}>root@tracewipe:~/session_init</span>
             </div>
 
             {/* Terminal Body */}
             <div style={{ padding: '24px', fontSize: '12px', lineHeight: '1.6', color: '#a3a3a3' }}>
               <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
                 <span style={{ color: '#10b981' }}>$</span>
-                <span style={{ color: '#fff' }}>zerotrace --init --secure</span>
+                <span style={{ color: '#fff' }}>tracewipe --init --secure</span>
               </div>
               <div style={{ color: '#737373', marginBottom: '16px' }}>
                 [SYSTEM] Initializing secure zero-knowledge environment...<br />
                 [SYSTEM] Loading WebCrypto Subtle API cores... [DONE]<br />
                 [SYSTEM] Isolating canvas/WebGL fingerprinters... [DONE]<br />
                 [SYSTEM] Mounting client-side memory blocks... [DONE]<br />
-                [SYSTEM] Status: Zero traces left behind.
+                [SYSTEM] Status: All traces wiped completely.
               </div>
               
               <div style={{ borderTop: '1px solid rgba(255,255,255,0.04)', paddingTop: '20px', marginTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
@@ -608,10 +609,11 @@ export default function Landing() {
               <svg width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 5 L90 25 V75 L50 95 L10 75 V25 Z" fill="#09090b" stroke="#3f3f46" strokeWidth="6" strokeLinejoin="round" />
                 <path d="M50 12 L82 28 V70 L50 87 L18 70 V28 Z" fill="none" stroke="#27272a" strokeWidth="4" />
-                <path d="M30 32 H70 L30 68 H70" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M50 32 V68" stroke="#71717a" strokeWidth="8" strokeLinecap="round" />
+                <path d="M30 32 H70" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" />
+                <path d="M50 32 V58" stroke="#e4e4e7" strokeWidth="8" strokeLinecap="round" />
+                <path d="M30 50 L40 72 L50 58 L60 72 L70 50" stroke="#71717a" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <span style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>ZeroTrace</span>
+              <span style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>TraceWipe</span>
               <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem', marginLeft: '1rem' }}>© 2026</span>
             </div>
             
